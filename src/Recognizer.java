@@ -8,9 +8,9 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -43,7 +43,7 @@ public class Recognizer {
 	private static final int PREV = 1;
 	private static final int NEXT = 0;
 
-	private static Map<String, List<Set<Integer>>> GLOBAL_MAPPING = null;
+	private Map<String, List<Set<Integer>>> GLOBAL_MAPPING = null;
 
 	/**
 	 * Writes image to file, assumes .jpg.
@@ -53,7 +53,7 @@ public class Recognizer {
 	 * @param fname
 	 *            the filename to write to
 	 */
-	public static void writeToFile(Mat img, String fname) {
+	public void writeToFile(Mat img, String fname) {
 		System.err.println("Writing image to file " + fname);
 		MatOfByte matOfByte = new MatOfByte();
 		Highgui.imencode(".jpg", img, matOfByte);
@@ -110,11 +110,20 @@ public class Recognizer {
 	 * @return A map of strings to lists of valid points
 	 * @throws IOException
 	 */
-	public static Map<String, List<Set<Integer>>> readMappingsFromFile(
-			String fname) throws IOException {
+	public Map<String, List<Set<Integer>>> readMappingsFromFile(String fname)
+			throws IOException {
 		Map<String, List<Set<Integer>>> mappings = new HashMap<String, List<Set<Integer>>>();
 
-		BufferedReader br = new BufferedReader(new FileReader(fname));
+		BufferedReader br = null;
+
+		if (fname != null) {
+			InputStream st = getClass().getResourceAsStream(fname);
+			if (st != null) {
+				br = new BufferedReader(new InputStreamReader(st));
+			} else {
+				System.err.println("Could not find " + fname + " in classpath");
+			}
+		}
 		String line = null;
 		while ((line = br.readLine()) != null) {
 			String colsplit[] = line.split(":");
@@ -151,7 +160,7 @@ public class Recognizer {
 	 *            the correct flags
 	 * @return a larger number for a better match
 	 */
-	public static double calc_score(boolean flags[], Set<Integer> correct_flags) {
+	public double calc_score(boolean flags[], Set<Integer> correct_flags) {
 		double score = 0.0;
 		for (int i = 0; i < flags.length; i++) {
 			if (correct_flags.contains(i)) {
@@ -174,7 +183,7 @@ public class Recognizer {
 	 *            The flags to match against
 	 * @return the string corresponding to those flags
 	 */
-	public static String match(boolean flags[]) {
+	public String match(boolean flags[]) {
 		String bestKey = null;
 		double bestScore = Double.NEGATIVE_INFINITY;
 
@@ -202,7 +211,7 @@ public class Recognizer {
 	 * @param flag
 	 *            the flag index
 	 */
-	public static void drawFlag(Mat img, int flag) {
+	public void drawFlag(Mat img, int flag) {
 		Point p1 = null;
 		Point p2 = null;
 
@@ -296,7 +305,7 @@ public class Recognizer {
 	 *            list of x-intercepts from the hough transforms
 	 * @return set of flags detected.
 	 */
-	public static boolean[] setFlags(List<Double> angles, List<Double> lengths,
+	public boolean[] setFlags(List<Double> angles, List<Double> lengths,
 			List<Double> yintercepts, List<Double> xintercepts) {
 		double ONE_THIRD = 1.0 / 3;
 		double TWO_THIRDS = 2.0 / 3;
@@ -407,8 +416,8 @@ public class Recognizer {
 	 *            List of symbol bounding boxes
 	 * @return Baseline structure tree to find formulae.
 	 */
-	public static BaselineStructureTree constructFormula(
-			final List<String> sym, final List<Rect> symRect) {
+	public BaselineStructureTree constructFormula(final List<String> sym,
+			final List<Rect> symRect) {
 		if (sym.isEmpty()) {
 			return null;
 		}
@@ -435,7 +444,7 @@ public class Recognizer {
 	 * @param fname
 	 *            the file to process
 	 */
-	public static void process(String fname, String imgpath) {
+	public void process(String fname, String imgpath) {
 		Mat img = Highgui.imread(fname, 0);
 
 		Mat smallerImg = new Mat();
@@ -595,9 +604,10 @@ public class Recognizer {
 
 	public static void main(String[] args) throws IOException {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		GLOBAL_MAPPING = readMappingsFromFile("config/mappings.txt");
+		Recognizer r = new Recognizer();
+		r.GLOBAL_MAPPING = r.readMappingsFromFile("config/mappings.txt");
 		if (args.length == 2) {
-			process(args[0], args[1]);
+			r.process(args[0], args[1]);
 		} else {
 			System.err.println("Invalid input");
 		}
