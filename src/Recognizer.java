@@ -45,8 +45,16 @@ public class Recognizer {
 
 	private static Map<String, List<Set<Integer>>> GLOBAL_MAPPING = null;
 
+	/**
+	 * Writes image to file, assumes .jpg.
+	 * 
+	 * @param img
+	 *            the image to write
+	 * @param fname
+	 *            the filename to write to
+	 */
 	public static void writeToFile(Mat img, String fname) {
-		System.out.println("Writing image to file " + fname);
+		System.err.println("Writing image to file " + fname);
 		MatOfByte matOfByte = new MatOfByte();
 		Highgui.imencode(".jpg", img, matOfByte);
 		byte[] byteArray = matOfByte.toArray();
@@ -200,71 +208,75 @@ public class Recognizer {
 
 		double HALF_WIDTH = img.cols() * 1.0 / 2;
 		double HALF_HEIGHT = img.rows() * 1.0 / 2;
+		int size = 3;
+		double MIN_VAL = size * 0.5;
+		double WIDTH = img.cols() - MIN_VAL;
+		double HEIGHT = img.rows() - MIN_VAL;
 
 		switch (flag) {
 		case 0:
-			p1 = new Point(0, 0);
-			p2 = new Point(HALF_WIDTH, 0);
+			p1 = new Point(MIN_VAL, MIN_VAL);
+			p2 = new Point(HALF_WIDTH, MIN_VAL);
 			break;
 		case 1:
-			p1 = new Point(img.cols(), 0);
-			p2 = new Point(HALF_WIDTH, 0);
+			p1 = new Point(WIDTH, MIN_VAL);
+			p2 = new Point(HALF_WIDTH, MIN_VAL);
 			break;
 		case 2:
-			p1 = new Point(0, 0);
-			p2 = new Point(0, HALF_HEIGHT);
+			p1 = new Point(MIN_VAL, MIN_VAL);
+			p2 = new Point(MIN_VAL, HALF_HEIGHT);
 			break;
 		case 3:
-			p1 = new Point(0, 0);
+			p1 = new Point(MIN_VAL, MIN_VAL);
 			p2 = new Point(HALF_WIDTH, HALF_HEIGHT);
 			break;
 		case 4:
-			p1 = new Point(HALF_WIDTH, 0);
+			p1 = new Point(HALF_WIDTH, MIN_VAL);
 			p2 = new Point(HALF_WIDTH, HALF_HEIGHT);
 			break;
 		case 5:
-			p1 = new Point(img.cols(), 0);
+			p1 = new Point(WIDTH, MIN_VAL);
 			p2 = new Point(HALF_WIDTH, HALF_HEIGHT);
 			break;
 		case 6:
-			p1 = new Point(img.cols(), 0);
-			p2 = new Point(img.cols(), HALF_HEIGHT);
+			p1 = new Point(WIDTH, MIN_VAL);
+			p2 = new Point(WIDTH, HALF_HEIGHT);
 			break;
 		case 7:
-			p1 = new Point(0, HALF_HEIGHT);
+			p1 = new Point(MIN_VAL, HALF_HEIGHT);
 			p2 = new Point(HALF_WIDTH, HALF_HEIGHT);
 			break;
 		case 8:
-			p1 = new Point(img.cols(), HALF_HEIGHT);
+			p1 = new Point(WIDTH, HALF_HEIGHT);
 			p2 = new Point(HALF_WIDTH, HALF_HEIGHT);
 			break;
 		case 9:
-			p1 = new Point(0, img.rows());
-			p2 = new Point(0, HALF_HEIGHT);
+			p1 = new Point(MIN_VAL, HEIGHT);
+			p2 = new Point(MIN_VAL, HALF_HEIGHT);
 			break;
 		case 10:
-			p1 = new Point(0, img.rows());
+			p1 = new Point(MIN_VAL, HEIGHT);
 			p2 = new Point(HALF_WIDTH, HALF_HEIGHT);
 			break;
 		case 11:
-			p1 = new Point(HALF_WIDTH, img.rows());
+			p1 = new Point(HALF_WIDTH, HEIGHT);
 			p2 = new Point(HALF_WIDTH, HALF_HEIGHT);
 			break;
 		case 12:
-			p1 = new Point(img.cols(), img.rows());
+			p1 = new Point(WIDTH, HEIGHT);
 			p2 = new Point(HALF_WIDTH, HALF_HEIGHT);
 			break;
 		case 13:
-			p1 = new Point(img.cols(), HALF_HEIGHT);
-			p2 = new Point(img.cols(), img.rows());
+			p1 = new Point(WIDTH, HALF_HEIGHT);
+			p2 = new Point(WIDTH, HEIGHT);
 			break;
 		case 14:
-			p1 = new Point(0, img.rows());
-			p2 = new Point(HALF_WIDTH, img.rows());
+			p1 = new Point(MIN_VAL, HEIGHT);
+			p2 = new Point(HALF_WIDTH, HEIGHT);
 			break;
 		case 15:
-			p1 = new Point(img.cols(), img.rows());
-			p2 = new Point(HALF_WIDTH, img.rows());
+			p1 = new Point(WIDTH, HEIGHT);
+			p2 = new Point(HALF_WIDTH, HEIGHT);
 			break;
 		}
 
@@ -423,7 +435,7 @@ public class Recognizer {
 	 * @param fname
 	 *            the file to process
 	 */
-	public static void process(String fname) {
+	public static void process(String fname, String imgpath) {
 		Mat img = Highgui.imread(fname, 0);
 
 		Mat smallerImg = new Mat();
@@ -451,7 +463,7 @@ public class Recognizer {
 		Imgproc.findContours(tempImg, contourList, hierarchy,
 				Imgproc.RETR_CCOMP, Imgproc.CHAIN_APPROX_SIMPLE);
 
-		System.out.println("Contours: " + contourList.size());
+		// System.out.println("Contours: " + contourList.size());
 
 		Scalar color = new Scalar(255, 0, 255);
 
@@ -559,7 +571,7 @@ public class Recognizer {
 					drawFlag(hough, i);
 				}
 			}
-			System.out.println("Is it... " + key + "?");
+			// System.out.println("Is it... " + key + "?");
 
 			rectangles.add(r);
 			keys.add(key);
@@ -568,21 +580,26 @@ public class Recognizer {
 		if (keys.size() > 0) {
 			BaselineStructureTree bst = constructFormula(keys, rectangles);
 			if (bst != null) {
-				System.out.println("Latex");
+				// System.out.println("Latex");
 				System.out.println(bst.interpretLaTeX());
-				System.out.println("Mathematica");
-				System.out.println(bst.interpretMathematica());
+				// System.out.println("Mathematica");
+				// System.out.println(bst.interpretMathematica());
 			}
 		} else {
 			System.err.println("Could not recognize image");
 		}
 		// imshow(houghImg, "Hough transformed image");
+		writeToFile(houghImg, imgpath);
 		// imshow(thresholdImg, "post-processed image");
 	}
 
 	public static void main(String[] args) throws IOException {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		GLOBAL_MAPPING = readMappingsFromFile("config/mappings.txt");
-		process("test/really_hard.jpg");
+		if (args.length == 2) {
+			process(args[0], args[1]);
+		} else {
+			System.err.println("Invalid input");
+		}
 	}
 }
