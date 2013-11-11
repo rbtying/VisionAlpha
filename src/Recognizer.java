@@ -458,7 +458,7 @@ public class Recognizer {
 		Imgproc.threshold(smallerImg, thresholdImg, 90, 255,
 				Imgproc.THRESH_BINARY_INV);
 
-		// imshow(thresholdImg, "Thresholded Image");
+		imshow(thresholdImg, "Thresholded Image");
 
 		Mat element = Imgproc.getStructuringElement(Imgproc.MORPH_CROSS,
 				new Size(3, 3));
@@ -469,10 +469,14 @@ public class Recognizer {
 		Mat hierarchy = new Mat();
 		Mat tempImg = new Mat();
 		thresholdImg.copyTo(tempImg);
+
+		Mat edges = new Mat();
+		Imgproc.Canny(tempImg, edges, 55, 200);
+
 		Imgproc.findContours(tempImg, contourList, hierarchy,
 				Imgproc.RETR_CCOMP, Imgproc.CHAIN_APPROX_SIMPLE);
 
-		// System.out.println("Contours: " + contourList.size());
+		System.out.println("Contours: " + contourList.size());
 
 		Scalar color = new Scalar(255, 0, 255);
 
@@ -503,7 +507,7 @@ public class Recognizer {
 				Imgproc.drawContours(drawn, contourList, i, color);
 			}
 		}
-		// imshow(drawn, "Contours");
+		imshow(drawn, "Contours");
 
 		List<Rect> rectangles = new ArrayList<Rect>();
 		List<String> keys = new ArrayList<String>();
@@ -580,26 +584,24 @@ public class Recognizer {
 					drawFlag(hough, i);
 				}
 			}
-			// System.out.println("Is it... " + key + "?");
-
 			rectangles.add(r);
 			keys.add(key);
+
+			imshow(hough, "Symbol_HOUGH");
+			imshow(raw, "Symbol_RAW");
 		}
 
 		if (keys.size() > 0) {
 			BaselineStructureTree bst = constructFormula(keys, rectangles);
 			if (bst != null) {
-				// System.out.println("Latex");
 				System.out.println(bst.interpretLaTeX());
-				// System.out.println("Mathematica");
-				// System.out.println(bst.interpretMathematica());
 			}
 		} else {
 			System.err.println("Could not recognize image");
 		}
-		// imshow(houghImg, "Hough transformed image");
+		imshow(houghImg, "Hough transformed image");
 		writeToFile(houghImg, imgpath);
-		// imshow(thresholdImg, "post-processed image");
+		imshow(thresholdImg, "post-processed image");
 	}
 
 	public static void main(String[] args) throws IOException {
