@@ -1,0 +1,15 @@
+@(message: String)
+
+@main("Type in some LaTeX to evaluate!") {
+
+@helper.form(action=routes.Application.getWolframResult, 'enctype -> "application/x-www-form-urlencoded") {
+<p>
+	<label for="latex">LaTeX input</label>
+    <input type="text" name="latex">
+</p>
+<p>
+    <input type="submit">
+</p>
+}
+
+}
