@@ -3,8 +3,21 @@
 @main("Upload a file to be processed!") {
 
 @helper.form(action=routes.Application.process, 'enctype -> "multipart/form-data") {
+<p>
+	<label for="file">File</label>
     <input type="file" name="file">
+</p>
+<p> 
+    <label for="includeWolfram">Include Wolfram Alpha results</label>
+    <input type="checkbox" name="includeWolfram">
+</p>
+<p>
+    <label for="showAllImages">Show all processing images</label>
+    <input type="checkbox" name="showAllImages">
+</p>
+<p>
     <input type="submit">
+</p>
 }
 
 }

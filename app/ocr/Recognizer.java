@@ -513,17 +513,9 @@ public class Recognizer {
 		for (String key : r.images.keySet()) {
 			Mat mat = r.images.get(key);
 			if (uploadImages || key.equals(ProcessResults.HOUGH_IMAGE)) {
-				try {
-					File f = File.createTempFile("recognizer-" + key + "-",
-							".jpg");
-					writeToFile(mat, f);
-					PictureUploader p = new ImgurUploader();
-					String link = p.uploadImage(f.getAbsolutePath());
-					images.put(key, link);
-					f.delete();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				PictureUploader p = new ImgurUploader();
+				String link = p.uploadImage(mat);
+				images.put(key, link);
 			}
 		}
 

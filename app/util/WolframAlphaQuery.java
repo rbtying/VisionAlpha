@@ -49,7 +49,11 @@ public class WolframAlphaQuery {
 									subPodNode.put("plaintext", text.getText());
 								}
 							}
-							podNode.put(subpod.getTitle(), subPodNode);
+							if (subpod.getTitle().length() > 0) {
+								podNode.put(subpod.getTitle(), subPodNode);
+							} else {
+								podNode.put("subpod", subPodNode);
+							}
 						}
 						results.put(pod.getTitle(), podNode);
 					}
