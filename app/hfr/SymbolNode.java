@@ -15,12 +15,15 @@
  ******************************************************************************/
 package hfr;
 
-import java.util.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 
-import java.awt.*;
-import java.awt.geom.*;
-
-import ocr.*;
+import ocr.DPoint;
 
 public class SymbolNode extends SymbolList implements Comparable<SymbolNode> {
 	/**

@@ -24,10 +24,13 @@ package hfr.graph;
  * @version 1.0
  */
 
-import java.util.*;
+import hfr.SymbolList;
+import hfr.SymbolNode;
 
-import DataStructures.*;
-import hfr.*;
+import java.util.ArrayList;
+
+import DataStructures.BinaryHeap;
+import DataStructures.Overflow;
 
 public class SymbolMinimumSpanningTree {
 	SymbolList nodes = new SymbolList();

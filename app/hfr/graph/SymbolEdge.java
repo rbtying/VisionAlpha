@@ -24,8 +24,8 @@ package hfr.graph;
  * @version 1.0
  */
 
-import hfr.*;
-import ocr.*;
+import hfr.SymbolNode;
+import ocr.DPoint;
 
 //import DataStructures.*;
 

@@ -23,10 +23,9 @@
  */
 package hfr;
 
-import java.util.*;
+import java.util.ArrayList;
 
-@SuppressWarnings("rawtypes")
-public class RegionList extends ArrayList {
+public class RegionList extends ArrayList<RegionNode> {
 
 	/**
 	 * 

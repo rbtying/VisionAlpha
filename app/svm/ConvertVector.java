@@ -24,8 +24,11 @@ package svm;
  * @version 1.0
  */
 
-import java.util.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.util.StringTokenizer;
 
 public class ConvertVector {
 	static BufferedReader filein;

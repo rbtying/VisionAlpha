@@ -23,9 +23,16 @@
  */
 package ocr;
 
-import java.util.*;
-import java.io.*;
-import svm.*;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+
+import svm.IO;
+import svm.SparseVector;
 
 public class ProcessSymbol {
 	static int np = 8;

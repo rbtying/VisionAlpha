@@ -23,8 +23,13 @@
  */
 package svm;
 
-import java.util.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
 
 public class ExtractData {
 	public static void main(String[] argv) {

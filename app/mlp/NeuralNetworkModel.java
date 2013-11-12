@@ -23,10 +23,14 @@
  */
 package mlp;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
 
-import svm.*;
+import svm.Data;
+import svm.IO;
+import svm.SparseVector;
 
 public class NeuralNetworkModel {
 	public double[][][] weigth;

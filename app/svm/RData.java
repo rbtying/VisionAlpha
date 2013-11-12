@@ -24,7 +24,8 @@ package svm;
  * @version 1.0
  */
 
-import java.io.*;
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
 
 public class RData {
 

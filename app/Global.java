@@ -1,7 +1,7 @@
 import org.opencv.core.Core;
 
-import play.GlobalSettings;
 import play.Application;
+import play.GlobalSettings;
 
 public class Global extends GlobalSettings {
 	@Override

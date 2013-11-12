@@ -24,7 +24,9 @@ package mlp;
  * @version 1.0
  */
 
-import svm.*;
+import svm.Data;
+import svm.IO;
+import svm.SparseVector;
 
 public class RPropSymmetric extends RProp {
 

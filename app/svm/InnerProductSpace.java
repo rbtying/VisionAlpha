@@ -23,7 +23,8 @@
  */
 package svm;
 
-import java.io.*;
+import java.io.DataOutputStream;
+import java.io.IOException;
 
 public interface InnerProductSpace {
 

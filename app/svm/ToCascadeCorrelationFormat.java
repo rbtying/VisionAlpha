@@ -24,7 +24,8 @@ package svm;
  * @version 1.0
  */
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class ToCascadeCorrelationFormat {
 

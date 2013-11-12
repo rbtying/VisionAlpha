@@ -23,8 +23,11 @@
  */
 package hfr;
 
-import hfr.graph.*;
-import ocr.*;
+import hfr.graph.MSTMatrix;
+import hfr.graph.MSTPrim;
+import hfr.graph.SymbolEdge;
+import hfr.graph.SymbolMinimumSpanningTree;
+import ocr.DPoint;
 
 public class BaselineStructureTree {
 	public final static int LATEX = 0;

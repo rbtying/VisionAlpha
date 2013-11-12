@@ -23,8 +23,9 @@
  */
 package svm;
 
-import java.util.*;
-import java.io.*;
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
+import java.util.Random;
 
 class RSmoSmola {
 	Kernel kernel;

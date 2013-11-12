@@ -23,12 +23,17 @@
  */
 package hfr;
 
-import java.util.*;
+import hfr.graph.MSTPrim;
+import hfr.graph.SymbolEdge;
 
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.Collections;
 
-import hfr.graph.*;
-import ocr.*;
+import ocr.DPoint;
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class SymbolList extends ArrayList<SymbolNode> {

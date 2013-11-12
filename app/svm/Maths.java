@@ -23,8 +23,8 @@
  */
 package svm;
 
-import java.awt.*;
-import java.util.*;
+import java.awt.Point;
+import java.util.ArrayList;
 
 public class Maths {
 	/*

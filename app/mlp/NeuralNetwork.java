@@ -23,8 +23,10 @@
  */
 package mlp;
 
-import java.io.*;
-import svm.*;
+import java.io.IOException;
+
+import svm.Data;
+import svm.SparseVector;
 
 public abstract class NeuralNetwork {
 	SparseVector[] point;

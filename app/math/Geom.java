@@ -23,9 +23,12 @@
  */
 package math;
 
-import java.awt.*;
-import java.util.*;
-import ocr.*;
+import java.awt.Point;
+import java.util.ArrayList;
+
+import ocr.DPoint;
+import ocr.DStroke;
+import ocr.Symbol;
 
 public class Geom {
 	public static double area2(DPoint a, DPoint b, DPoint c) {

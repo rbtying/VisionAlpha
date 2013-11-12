@@ -23,7 +23,7 @@
  */
 package ocr;
 
-import java.awt.*;
+import java.awt.Point;
 
 public class Stroke {
 

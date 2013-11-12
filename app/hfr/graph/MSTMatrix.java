@@ -24,9 +24,10 @@ package hfr.graph;
  * @version 1.0
  */
 
-import java.util.*;
+import hfr.SymbolList;
+import hfr.SymbolNode;
 
-import hfr.*;
+import java.util.ArrayList;
 
 public class MSTMatrix {
 	public static ArrayList<MSTMatrix> MatrixMemory = new ArrayList<MSTMatrix>();

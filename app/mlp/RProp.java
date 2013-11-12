@@ -23,8 +23,13 @@
  */
 package mlp;
 
-import java.io.*;
-import svm.*;
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import svm.Data;
+import svm.IO;
+import svm.SparseVector;
 
 public class RProp extends BackPropagation {
 	public double[][][] deltaWeigthOld;

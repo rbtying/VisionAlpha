@@ -24,8 +24,9 @@ package svm;
  * @version 1.0
  */
 
-import java.util.*;
-import java.io.*;
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
 
 public class ToMatlabFormat {
 

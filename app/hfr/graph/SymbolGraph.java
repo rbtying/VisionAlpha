@@ -24,7 +24,8 @@ package hfr.graph;
  * @version 1.0
  */
 
-import hfr.*;
+import hfr.SymbolList;
+import hfr.SymbolNode;
 
 public class SymbolGraph {
 	SymbolList nodes = new SymbolList();

@@ -23,9 +23,11 @@
  */
 package math;
 
-import java.awt.*;
-import java.util.*;
-import ocr.*;
+import java.awt.Point;
+import java.util.ArrayList;
+
+import ocr.DPoint;
+import ocr.DStroke;
 
 public class Maths {
 	public static double area2(DPoint a, DPoint b, DPoint c) {
