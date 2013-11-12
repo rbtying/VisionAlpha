@@ -1,0 +1,10 @@
+@(message: String)
+
+@main("Upload a file to be processed!") {
+
+@helper.form(action=routes.Application.process, 'enctype -> "multipart/form-data") {
+    <input type="file" name="file">
+    <input type="submit">
+}
+
+}
